@@ -9,7 +9,7 @@ export default function RootLayout() {
   return (
     <WindowDimensionsProvider>
       <Stack>
-        <Stack.Screen name={ROOT_MODULES.PLANETS_MODULE} options={{headerShown: false}}/>
+        <Stack.Screen name={ROOT_MODULES.DESTINATIONS_MODULE} options={{headerShown: false}}/>
         <Stack.Screen name={ROOT_MODULES.TABS_MODULE} options={{headerShown: false}}/>
       </Stack>
     </WindowDimensionsProvider>

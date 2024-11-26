@@ -2,9 +2,9 @@ export class BackendCaller {
     /**
      * Identificador de la API.
      */
-    static #API_URI = 'http://10.13.170.46:8000/planets';
+    static #API_URI = 'http://161.35.143.238:8000/lbonilla';
 
-    static async getAllPlanets() {
+    static async getAllDestinations() {
         try {
             const response = await fetch(this.#API_URI,
                 {
@@ -23,9 +23,9 @@ export class BackendCaller {
         }
     }
 
-    static async getPlanetByID(planetID) {
+    static async getDestinationByID(destinationID) {
         try {
-            const response = await fetch(this.#API_URI + `/${planetID}`,
+            const response = await fetch(this.#API_URI + `/${destinationID}`,
                 {
                     method: "GET",
                 }
@@ -42,7 +42,7 @@ export class BackendCaller {
         }
     }
 
-    static async postPlanet(name, description, quantityMoons, moonNames, imageURL) {
+    static async postDestination(name, description, difficulty, favourite) {
         try {
             const response = await fetch(this.#API_URI,
                 {
@@ -54,9 +54,8 @@ export class BackendCaller {
                         {
                             name: name,
                             description: description,
-                            moons: quantityMoons,
-                            moon_names: moonNames,
-                            image: imageURL
+                            difficulty: difficulty,
+                            favourite: favourite
                         }
                     )
                 }
@@ -73,9 +72,9 @@ export class BackendCaller {
         }
     }
 
-    static async deletePlanet(planetID) {
+    static async deleteDestination(destinationID) {
         try {
-            const response = await fetch(this.#API_URI + `/${planetID}`,
+            const response = await fetch(this.#API_URI + `/${destinationID}`,
                 {
                     method: "DELETE",
                 }
@@ -92,9 +91,9 @@ export class BackendCaller {
         }
     }
 
-    static async putPlanet(planetID, name, description, quantityMoons, moonNames, imageURL) {
+    static async putDestination(destinationID, name, description, difficulty, favourite) {
         try {
-            const response = await fetch(this.#API_URI + `/${planetID}`,
+            const response = await fetch(this.#API_URI + `/${destinationID}`,
                 {
                     method: "PUT",
                     headers: {
@@ -104,9 +103,8 @@ export class BackendCaller {
                         {
                             name: name,
                             description: description,
-                            moons: quantityMoons,
-                            moon_names: moonNames,
-                            image: imageURL
+                            difficulty: difficulty,
+                            favourite: favourite
                         }
                     )
                 }

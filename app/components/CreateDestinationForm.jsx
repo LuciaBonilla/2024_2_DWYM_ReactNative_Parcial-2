@@ -5,16 +5,18 @@ import { useRouter, useFocusEffect } from "expo-router";
 // COMPONENTES.
 import NormalTextInput from "./NormalTextInput";
 
-import BackendCaller from "./../../auxiliar-classes/BackendCaller"
+// CLASES AUXILIARES.
+import BackendCaller from "../../auxiliar-classes/BackendCaller"
 
 // PROVEEDOR DE CONTEXTO.
 import { useWindowDimensions } from "@/context-providers/WindowDimensionsProvider";
 
 // RUTAS.
 import NAVIGATION_CONSTANTS from "../../constants/navigation";
-const PLANET_DETAILS_ROUTE = NAVIGATION_CONSTANTS.PLANETS_ROUTES.PLANET_DETAILS_ROUTE;
+import DropDown from "./DropDown";
+const DESTINATIONS_INDEX_ROUTE = NAVIGATION_CONSTANTS.TABS_ROUTES.DESTINATIONS_INDEX_ROUTE;
 
-export default function EditPlanetForm({ planetID }) {
+export default function CreateDestinationForm() {
     // Para estilos.
     const { width, height } = useWindowDimensions();
     const [styles, setStyles] = useState(createStyles(width, height));
@@ -26,34 +28,32 @@ export default function EditPlanetForm({ planetID }) {
     // Para cambiar de ruta.
     const router = useRouter();
 
-    // Detalles a editar.
+    // Detalles a agregar.
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
-    const [quantityMoons, setQuantityMoons] = useState("");
-    const [moonNames, setMoonNames] = useState("");
-    const [imageURL, setImageURL] = useState("");
+    const [difficulty, setDifficulty] = useState("");
+    const [favourite, setFavourite] = useState("");
 
     useFocusEffect(
         useCallback(() => {
             async function clearInputs() {
                 setName("");
                 setDescription("");
-                setQuantityMoons("");
-                setMoonNames("");
-                setImageURL("");
+                setDifficulty("");
+                setFavourite("");
             }
-    
+
             clearInputs(); // Llama a la función asincrónica al enfocar la pantalla
         }, []) // La dependencia vacía asegura que solo se ejecute al enfocar
     );
 
-    async function handleEditPlanet() {
-        const moonNamesArray = await moonNames.split(","); // Separa el string por comas.
-        await setQuantityMoons(moonNamesArray.length);
-        const response = await BackendCaller.putPlanet(planetID, name, description, quantityMoons, moonNamesArray, imageURL);
+    async function handleCreateDestination() {
+        if (name !== "" && description !== "" && difficulty !== "" && favourite !== "") {
+            const response = await BackendCaller.postDestination(name, description, difficulty, favourite==="Favorito" ? true : false);
 
-        if (response.statusCode === 200) {
-            router.push(PLANET_DETAILS_ROUTE.replace("[planetID]", planetID));
+            if (response.statusCode === 201) {
+                router.replace(DESTINATIONS_INDEX_ROUTE);
+            }
         }
     }
 
@@ -66,7 +66,7 @@ export default function EditPlanetForm({ planetID }) {
             >
                 <NormalTextInput
                     inputTitle="NOMBRE"
-                    inputName="edit-planet-name"
+                    inputName="create-destination-name"
                     textInputStyle={styles.textInput}
                     viewStyle={styles.inputView}
                     setState={setName}
@@ -75,33 +75,27 @@ export default function EditPlanetForm({ planetID }) {
 
                 <NormalTextInput
                     inputTitle="DESCRIPCIÓN"
-                    inputName="edit-planet-description"
+                    inputName="create-destination-description"
                     textInputStyle={styles.textInput}
                     viewStyle={styles.inputView}
                     setState={setDescription}
                     value={description}
                 />
 
-                <NormalTextInput
-                    inputTitle="NOMBRES DE LUNAS (separe los nombres por coma)"
-                    inputName="edit-planet-moon-names"
-                    textInputStyle={styles.textInput}
-                    viewStyle={styles.inputView}
-                    setState={setMoonNames}
-                    value={moonNames}
+                <DropDown
+                    options={["hard", "easy", "medium"]}
+                    onValueChange={setDifficulty}
+                    placeholder="Selecciona una dificultad"
                 />
 
-                <NormalTextInput
-                    inputTitle="IMAGEN URL"
-                    inputName="edit-planet-image-url"
-                    textInputStyle={styles.textInput}
-                    viewStyle={styles.inputView}
-                    setState={setImageURL}
-                    value={imageURL}
+                <DropDown
+                    options={["Favorito", "No favorito"]}
+                    onValueChange={setFavourite}
+                    placeholder="¿Favorito?"
                 />
 
-                <Pressable onPress={() => handleEditPlanet()}>
-                    <Text>EDITAR PLANETA</Text>
+                <Pressable onPress={() => handleCreateDestination()} style={styles.button}>
+                    <Text>CREAR DESTINO</Text>
                 </Pressable>
             </ScrollView>
         </KeyboardAvoidingView>
@@ -123,7 +117,7 @@ function createStyles(width, height) {
             rowGap: 20,
             flexGrow: 1,
             paddingBottom: 20, // Espacio adicional para el teclado
-            rowGap: 20,
+            rowGap: 10,
         },
         textInput: {
             padding: 10,
@@ -136,6 +130,11 @@ function createStyles(width, height) {
         inputView: {
             position: "relative",
             width: width * 0.85,
+        },
+        button: {
+            backgroundColor: "#280",
+            color: "fff",
+            padding: 10,
         }
     })
 };

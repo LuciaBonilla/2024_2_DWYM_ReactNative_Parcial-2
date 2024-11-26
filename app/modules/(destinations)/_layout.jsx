@@ -2,15 +2,14 @@ import NAVIGATION_CONSTANTS from "@/constants/navigation";
 import { Stack } from "expo-router";
 import "react-native-reanimated";
 
-export default function PlanetsLayout() {
+export default function DestinationsLayout() {
     return (
         <Stack>
-            <Stack.Screen name="PlanetDetailsScreen/[planetID]" options={{ headerTitle: "DETALLES DEL PLANETA" }} />
             <Stack.Screen
-                name="EditPlanetDetailsScreen/[planetID]"
+                name="EditDestinationDetailsScreen/[destinationID]"
                 options={{
                     presentation: "modal",
-                    headerTitle: "EDITAR PLANETA"
+                    headerTitle: "EDITAR DESTINO"
                 }}
             />
         </Stack>

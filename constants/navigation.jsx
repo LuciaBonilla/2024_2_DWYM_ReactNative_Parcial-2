@@ -1,34 +1,32 @@
 // MÓDULOS PARA EL RootLayout.
-const PLANETS_MODULE = "modules/(planets)";
+const DESTINATIONS_MODULE = "modules/(destinations)";
 const TABS_MODULE = "modules/(tabs)";
 
 // RUTAS DE (tabs)
-const PLANET_INDEX_ROUTE = "modules/PlanetIndexScreen";
-const CREATE_PLANET_ROUTE = "modules/CreatePlanetScreen";
+const DESTINATIONS_INDEX_ROUTE = "modules/DestinationsIndexScreen";
+const CREATE_DESTINATION_ROUTE = "modules/CreateDestinationScreen";
 
-// RUTAS DE (planets)
-const PLANET_DETAILS_ROUTE = "modules/PlanetDetailsScreen/[planetID]";
-const EDIT_PLANET_DETAILS_ROUTE = "modules/EditPlanetDetailsScreen/[planetID]"
+// RUTAS DE (destinations)
+const EDIT_DESTINATION_DETAILS_ROUTE = "modules/EditDestinationDetailsScreen/[destinationID]"
 
-const INITIAL_ROUTE = PLANET_INDEX_ROUTE;
+const INITIAL_ROUTE = DESTINATIONS_INDEX_ROUTE;
 
 // --->>>
 
 // MÓDULOS.
 const ROOT_MODULES = {
-    PLANETS_MODULE,
+    DESTINATIONS_MODULE,
     TABS_MODULE,
 };
 
 // RUTAS.
-const TAB_ROUTES = {
-    PLANET_INDEX_ROUTE,
-    CREATE_PLANET_ROUTE,
+const TABS_ROUTES = {
+    DESTINATIONS_INDEX_ROUTE,
+    CREATE_DESTINATION_ROUTE,
 };
 
-const PLANETS_ROUTES = {
-    PLANET_DETAILS_ROUTE,
-    EDIT_PLANET_DETAILS_ROUTE,
+const DESTINATIONS_ROUTES = {
+    EDIT_DESTINATION_DETAILS_ROUTE,
 };
 
 // --->>>
@@ -37,8 +35,8 @@ const PLANETS_ROUTES = {
 const NAVIGATION_CONSTANTS = {
     INITIAL_ROUTE,
     ROOT_MODULES,
-    TAB_ROUTES,
-    PLANETS_ROUTES,
+    TABS_ROUTES,
+    DESTINATIONS_ROUTES,
 };
 
 export default NAVIGATION_CONSTANTS;

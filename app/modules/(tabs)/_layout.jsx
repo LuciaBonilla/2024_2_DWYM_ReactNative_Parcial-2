@@ -1,33 +1,27 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Tabs } from "expo-router";
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 export default function TabLayout() {
     return (
         <Tabs
             screenOptions={{
                 tabBarActiveTintColor: "blue",
-                tabBarHideOnKeyboard: true, // Oculta las Tabs automáticamente
+                tabBarHideOnKeyboard: true,
             }}>
             <Tabs.Screen
-                name="PlanetIndexScreen"
+                name="DestinationsIndexScreen"
                 options={{
-                    title: "PLANETARIO",
-                    tabBarIcon: ({ color }) => <Ionicons name="planet" size={24} color="black" />,
+                    title: "DESTINOS",
+                    tabBarIcon: () => <MaterialIcons name="place" size={24} color="black" />,
                 }}
             />
             <Tabs.Screen
-                name="CreatePlanetScreen"
+                name="CreateDestinationScreen"
                 options={{
-                    title: "CREAR PLANETA",
-                    tabBarIcon: ({ color }) => <FontAwesome size={28} name="plus" color={color} />,
-                }}
-            />
-            <Tabs.Screen
-                name="TestScreen"
-                options={{
-                    title: "prueba",
-                    tabBarIcon: ({ color }) => <FontAwesome size={28} name="plus" color={color} />,
+                    title: "CREAR DESTINO",
+                    tabBarIcon: () => <FontAwesome size={28} name="plus" color="black" />,
                 }}
             />
         </Tabs>

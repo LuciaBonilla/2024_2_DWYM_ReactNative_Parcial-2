@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 
-export default function DropDown({ options, onValueChange, placeholder = "Selecciona una opción" }) {
-    const [selectedValue, setSelectedValue] = useState("");
+export default function DropDown({ options, onValueChange, placeholder = "Selecciona una opción", value }) {
+    const [selectedValue, setSelectedValue] = useState(value);
 
     return (
         <View style={styles.container}>
